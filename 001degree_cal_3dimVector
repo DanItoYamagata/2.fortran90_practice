@@ -1,0 +1,37 @@
+program func05
+ implicit none
+ real, dimension(3) :: X, Y
+ real :: R, T
+ interface 
+  function SP(A, B, N)
+   implicit none
+   real :: SP
+   real, dimension(*), intent(in):: A, B
+   integer, intent(in) :: N
+  end function SP
+ end interface
+  write(*,*) 'X_1, X_2, X_3='
+  read(*,*) X
+  write(*,*) 'Y_1, Y_2, Y_3='
+  read(*,*) Y
+  R = SP(X, Y, 3)/sqrt(SP(X, X, 3)*SP(Y, Y, 3))
+  T = acos(R)*180.0/3.14159
+  write(*,*) 'The angle between X and Y is', T, 'degree'
+  stop
+end program func05
+
+function SP(A, B, N)
+ implicit none
+ real :: SP
+ real, dimension(*), intent(in) :: A, B
+ integer, intent(in) :: N
+ integer :: I
+ real :: S
+ 
+ S = 0.0
+ do I =1,N
+  S= A(I)* B(I) + S
+ end do
+ SP = S
+ return
+end function SP
